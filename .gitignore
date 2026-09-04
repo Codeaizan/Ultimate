@@ -1,0 +1,34 @@
+# Build artifacts
+*.obj
+*.pdb
+*.exe
+*.sys
+*.log
+*.spec
+*.cer
+
+# Directories
+__pycache__/
+build/
+dist/
+cpp/bin/
+cpp/packages/
+cpp/tools/
+driver/build/
+
+# Test files
+cpp/test_window.*
+
+# Python bytecode
+*.pyc
+*.pyo
+
+# IDE
+.vs/
+.vscode/
+*.suo
+*.user
+
+# OS
+Thumbs.db
+Desktop.ini

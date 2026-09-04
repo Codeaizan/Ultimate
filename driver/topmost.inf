@@ -1,0 +1,61 @@
+;
+; topmost.inf
+; ============
+; Installation INF for TopMost Shield Kernel Driver
+;
+; Copyright (c) 2026 TopMost Shield Project
+;
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = System
+ClassGuid   = {4D36E97D-E325-11CE-BFC1-08002BE10318}
+Provider    = %ManufacturerName%
+CatalogFile = topmost.cat
+DriverVer   = 09/03/2026,1.0.0.0
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir = 13
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+topmost_driver.sys = 1,,
+
+; ─── Manufacturer ────────────────────────────────────────────────────────
+
+[Manufacturer]
+%ManufacturerName% = Standard,NTamd64
+
+[Standard.NTamd64]
+%DeviceDesc% = TopMost_Device, Root\TopMostDriver
+
+; ─── Device Install ──────────────────────────────────────────────────────
+
+[TopMost_Device.NT]
+CopyFiles = TopMost_Device.NT.Copy
+
+[TopMost_Device.NT.Copy]
+topmost_driver.sys
+
+[TopMost_Device.NT.Services]
+AddService = TopMostDriver,0x00000002,TopMost_Service_Install
+
+; ─── Service Install ─────────────────────────────────────────────────────
+
+[TopMost_Service_Install]
+DisplayName    = %ServiceDesc%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %13%\topmost_driver.sys
+
+; ─── Strings ─────────────────────────────────────────────────────────────
+
+[Strings]
+ManufacturerName = "TopMost Shield"
+DeviceDesc       = "TopMost Shield Kernel Driver"
+ServiceDesc      = "TopMost Shield Priority Enforcement Driver"
+DiskName         = "TopMost Shield Installation Disk"
